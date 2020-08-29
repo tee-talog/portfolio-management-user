@@ -35,6 +35,18 @@ export default defineComponent({
     const processing = ref(false)
     const errorMessages = ref<string[]>([])
 
+    processing.value = true
+    api
+      .user(id)
+      .then((e) => {
+        name.value = e.name
+        biography.value = e.biography
+        processing.value = false
+      })
+      .catch((e) => {
+        errorMessages.value = ['ユーザー情報の取得に失敗しました']
+      })
+
     const updateUser = async () => {
       processing.value = true
       const user = { id, name: name.value, biography: biography.value }

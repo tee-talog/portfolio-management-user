@@ -1,6 +1,11 @@
 import { User } from '../types/data/user'
 import * as store from './store/store'
 
+export const user = async (id: string) => {
+  // mock
+  return await store.user(id)
+}
+
 export const addUser = async (name: string, biography: string) => {
   // mock
   return await store.addUser(name, biography)
