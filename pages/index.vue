@@ -12,6 +12,15 @@
         <el-table-column label="">
           <template v-slot="slotProps">
             <el-button size="small" @click="moveToUpdateUser(slotProps.row.id)">編集</el-button>
+            <el-popconfirm
+              title="本当に削除しますか？"
+              confirm-button-text="はい"
+              cancel-button-text="いいえ"
+              hide-icon
+              @onConfirm="deleteUser(slotProps.row.id)"
+            >
+              <el-button slot="reference" size="small">削除</el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -23,6 +32,7 @@
 import { defineComponent, ref } from '@vue/composition-api'
 import { User } from '../types/data/user'
 import { userList } from '../api/user-list'
+import * as api from '../api/user'
 
 export default defineComponent({
   setup(_props, context) {
@@ -36,7 +46,11 @@ export default defineComponent({
       context.root.$router.push(`/user/${id}/update`)
     }
 
-    return { users, moveToUpdateUser }
+    const deleteUser = (id: string) => {
+      api.deleteUser(id)
+    }
+
+    return { users, moveToUpdateUser, deleteUser }
   },
 })
 </script>

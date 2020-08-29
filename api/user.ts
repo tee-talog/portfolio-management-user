@@ -10,3 +10,8 @@ export const updateUser = async (user: User) => {
   // mock
   return await store.updateUser(user)
 }
+
+export const deleteUser = async (id: string) => {
+  // mock
+  return await store.deleteUser(id)
+}

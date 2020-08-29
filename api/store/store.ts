@@ -36,3 +36,14 @@ export const updateUser = async (user: User) => {
 export const users = async () => {
   return await Promise.resolve(_users)
 }
+
+export const deleteUser = async (id: string) => {
+  const index = _users.findIndex((e) => e.id === id)
+  if (index < 0) {
+    // ユーザーが存在しない場合
+    return Promise.reject(new Error(`user not found. ID: ${id}`))
+  }
+
+  _users.splice(index, 1)
+  return await Promise.resolve()
+}
