@@ -34,7 +34,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/composition-api'],
+  plugins: ['@/plugins/element-ui', '@/plugins/composition-api', '@/plugins/vue-flash'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

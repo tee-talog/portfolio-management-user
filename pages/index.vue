@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <el-alert v-for="(flash, i) in flashList" :key="i" closable="false" :type="flash.type">{{
+      flash.text
+    }}</el-alert>
+
     <div>
       <nuxt-link to="/user/add" underline="false"><i class="el-icon-user-solid"></i>追加</nuxt-link>
     </div>
@@ -50,7 +54,9 @@ export default defineComponent({
       api.deleteUser(id)
     }
 
-    return { users, moveToUpdateUser, deleteUser }
+    const flashList = context.root.$getFlash()
+
+    return { users, moveToUpdateUser, deleteUser, flashList }
   },
 })
 </script>

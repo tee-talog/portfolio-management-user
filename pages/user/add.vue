@@ -38,6 +38,7 @@ export default defineComponent({
       processing.value = true
       try {
         await apiAddUser(name.value, biography.value)
+        context.root.$setFlash({ type: 'success', text: 'ユーザーを追加しました' })
         context.root.$router.push('/')
       } catch (e) {
         errorMessages.value = ['ユーザーの追加に失敗しました']

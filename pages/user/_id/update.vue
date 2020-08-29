@@ -52,6 +52,7 @@ export default defineComponent({
       const user = { id, name: name.value, biography: biography.value }
       try {
         await api.updateUser(user)
+        context.root.$setFlash({ type: 'success', text: 'ユーザー情報を更新しました' })
         context.root.$router.push('/')
       } catch (e) {
         errorMessages.value = ['ユーザーの変更に失敗しました']
