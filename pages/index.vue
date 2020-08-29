@@ -5,7 +5,7 @@
     }}</el-alert>
 
     <div>
-      <nuxt-link to="/user/add" underline="false"><i class="el-icon-user-solid"></i>追加</nuxt-link>
+      <el-button class="user-add" size="small" @click="moveToAddUser"><i class="el-icon-user-solid"></i>追加</el-button>
     </div>
 
     <div>
@@ -46,6 +46,10 @@ export default defineComponent({
       users.value = res
     })
 
+    const moveToAddUser = () => {
+      context.root.$router.push('/user/add')
+    }
+
     const moveToUpdateUser = (id: string) => {
       context.root.$router.push(`/user/${id}/update`)
     }
@@ -56,7 +60,13 @@ export default defineComponent({
 
     const flashList = context.root.$getFlash()
 
-    return { users, moveToUpdateUser, deleteUser, flashList }
+    return { users, moveToUpdateUser, deleteUser, flashList, moveToAddUser }
   },
 })
 </script>
+
+<style scoped>
+.user-add {
+  margin-top: 20px;
+}
+</style>
