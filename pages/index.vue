@@ -1,10 +1,16 @@
 <template>
   <div class="container">
-    <el-table :data="users">
-      <el-table-column prop="id" label="id" />
-      <el-table-column prop="name" label="名前" />
-      <el-table-column prop="biography" label="説明" />
-    </el-table>
+    <div>
+      <nuxt-link to="/user/add" underline="false"><i class="el-icon-user-solid"></i>Add</nuxt-link>
+    </div>
+
+    <div>
+      <el-table :data="users">
+        <el-table-column prop="id" label="id" />
+        <el-table-column prop="name" label="名前" />
+        <el-table-column prop="biography" label="説明" />
+      </el-table>
+    </div>
   </div>
 </template>
 
