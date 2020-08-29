@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <table>
-      <tr v-for="u in users" :key="u.id">
-        <td>{{ u.id }}</td>
-        <td>{{ u.name }}</td>
-        <td>{{ u.biography }}</td>
-      </tr>
-    </table>
+    <el-table :data="users">
+      <el-table-column prop="id" label="id" />
+      <el-table-column prop="name" label="名前" />
+      <el-table-column prop="biography" label="説明" />
+    </el-table>
   </div>
 </template>
 
@@ -27,36 +25,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

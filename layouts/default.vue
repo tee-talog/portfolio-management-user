@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <Nuxt />
-  </div>
+  <el-container>
+    <el-header class="header">
+      <nuxt-link to="/" class="title">User Management</nuxt-link>
+    </el-header>
+    <el-main>
+      <Nuxt />
+    </el-main>
+  </el-container>
 </template>
 
 <style>
@@ -24,32 +29,24 @@ html {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<style scoped>
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: #000;
+  font-size: 26px;
   text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+  border: none;
 }
 </style>
