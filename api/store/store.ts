@@ -22,6 +22,17 @@ export const addUser = async (name: string, biography: string): Promise<User> =>
   return await Promise.resolve(user)
 }
 
+export const updateUser = async (user: User) => {
+  const index = _users.findIndex((e) => e.id === user.id)
+  if (index < 0) {
+    // ユーザーが存在しない場合
+    return Promise.reject(new Error(`user not found. ID: ${user.id}`))
+  }
+
+  _users.splice(index, 1, user)
+  return await Promise.resolve()
+}
+
 export const users = async () => {
   return await Promise.resolve(_users)
 }
