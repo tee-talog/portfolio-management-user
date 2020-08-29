@@ -1,3 +1,12 @@
+const routerBase =
+  process.env.DEPLOY_ENV === 'GH_PAGES'
+    ? {
+        router: {
+          base: '/portfolio-management-user/',
+        },
+      }
+    : {}
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -67,4 +76,5 @@ export default {
   build: {
     transpile: [/^element-ui/],
   },
+  ...routerBase,
 }
