@@ -6,6 +6,11 @@
     <el-main>
       <Nuxt />
     </el-main>
+    <el-footer>
+      <div class="footer-content">
+        <nuxt-link to="/about" class="about-link">about</nuxt-link>
+      </div>
+    </el-footer>
   </el-container>
 </template>
 
@@ -50,5 +55,14 @@ body {
   font-size: 26px;
   text-decoration: none;
   border: none;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-link {
+  margin: 10px 20px;
 }
 </style>
