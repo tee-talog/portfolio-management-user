@@ -1,25 +1,29 @@
 <template>
   <div class="container">
-    <div>
-      <h1 class="title">portfolio-management-user</h1>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" rel="noopener noreferrer" class="button--green">
-          Documentation
-        </a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" rel="noopener noreferrer" class="button--grey">
-          GitHub
-        </a>
-      </div>
-    </div>
+    <table>
+      <tr v-for="u in users" :key="u.id">
+        <td>{{ u.id }}</td>
+        <td>{{ u.name }}</td>
+        <td>{{ u.biography }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
+import { User } from '../types/data/user'
+import { userList } from '../api/user-list'
 
 export default defineComponent({
   setup() {
-    return {}
+    const users = ref<User[]>([])
+
+    userList().then((res) => {
+      users.value = res
+    })
+
+    return { users }
   },
 })
 </script>
