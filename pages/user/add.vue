@@ -1,7 +1,7 @@
 <template>
   <div class="add-container">
     <h2 class="subtitle">ユーザー追加</h2>
-    <form class="form">
+    <form class="form" @submit.prevent>
       <el-alert v-for="(message, i) in errorMessages" :key="i" closable="false" type="error">{{ message }}</el-alert>
 
       <div class="form_name">
