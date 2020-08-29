@@ -2,6 +2,8 @@
   <div class="add-container">
     <h2 class="subtitle">ユーザー追加</h2>
     <form class="form">
+      <el-alert v-for="(message, i) in errorMessages" :key="i" closable="false" type="error">{{ message }}</el-alert>
+
       <div class="form_name">
         <label for="name">名前</label>
         <el-input id="name" v-model="name" clearable />
@@ -23,16 +25,24 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
+import { addUser as apiAddUser } from '../../api/user'
 
 export default defineComponent({
   setup(_props, context) {
     const name = ref('')
     const biography = ref('')
     const processing = ref(false)
+    const errorMessages = ref<string[]>([])
 
-    const addUser = () => {
-      // TODO
+    const addUser = async () => {
       processing.value = true
+      try {
+        await apiAddUser(name.value, biography.value)
+        context.root.$router.push('/')
+      } catch (e) {
+        errorMessages.value = ['ユーザーの追加に失敗しました']
+        processing.value = false
+      }
     }
 
     const historyBack = () => {
@@ -45,7 +55,7 @@ export default defineComponent({
       biography.value = ''
     }
 
-    return { name, biography, addUser, historyBack, clearValues, processing }
+    return { name, biography, addUser, historyBack, clearValues, processing, errorMessages }
   },
 })
 </script>
