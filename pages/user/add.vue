@@ -1,41 +1,40 @@
 <template>
   <div class="add-container">
     <h2 class="subtitle">ユーザー追加</h2>
-    <form class="form" @submit.prevent>
-      <el-alert v-for="(message, i) in errorMessages" :key="i" closable="false" type="error">{{ message }}</el-alert>
-
-      <div class="form_name">
-        <label for="name">名前</label>
-        <el-input id="name" v-model="name" clearable />
-      </div>
-
-      <div class="form_biography">
-        <label for="biography">説明</label>
-        <el-input id="biography" v-model="biography" type="textarea" autosize clearable />
-      </div>
-
-      <div class="form_actions">
-        <el-button :disabled="processing" type="primary" @click="addUser">追加</el-button>
-        <el-button :disabled="processing" type="info" @click="historyBack">キャンセル</el-button>
-        <el-button :disabled="processing" @click="clearValues">クリア</el-button>
-      </div>
-    </form>
+    <UserInfoForm
+      :name="name"
+      :biography="biography"
+      :disabled="processing"
+      :error-messages="errorMessages"
+      primary-text="追加"
+      @click-primary="addUser"
+      @click-cancel="historyBack"
+      @click-clear="clearValues"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
 import useUser from '../../compositions/users'
+import UserInfoForm from '../../components/form/UserInfoForm.vue'
 
 export default defineComponent({
+  components: {
+    UserInfoForm,
+  },
   setup(_props, context) {
     const processing = ref(false)
     const errorMessages = ref<string[]>([])
 
     const { name, biography, add, clearValues } = useUser()
 
-    const addUser = async () => {
+    const addUser = async (user: { name: string; biography: string }) => {
       processing.value = true
+
+      name.value = user.name
+      biography.value = user.biography
+
       try {
         await add()
         context.root.$setFlash({ type: 'success', text: 'ユーザーを追加しました' })
@@ -63,18 +62,5 @@ export default defineComponent({
 
 .subtitle {
   margin-bottom: 30px;
-}
-
-.form {
-  width: 100%;
-}
-
-.form_name,
-.form_bioraphy {
-  margin: 20px 0;
-}
-
-.form_actions {
-  margin-top: 30px;
 }
 </style>
