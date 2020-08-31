@@ -1,5 +1,5 @@
 import { ref } from '@vue/composition-api'
-import * as api from '..//api/user'
+import * as api from '../api/user'
 
 export default () => {
   const _id = ref('')
@@ -27,5 +27,5 @@ export default () => {
     biography.value = ''
   }
 
-  return { name, biography, load, add, update, clearValues }
+  return { _id, name, biography, load, add, update, clearValues }
 }
