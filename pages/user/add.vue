@@ -25,19 +25,19 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
-import { addUser as apiAddUser } from '../../api/user'
+import useUser from '../../compositions/users'
 
 export default defineComponent({
   setup(_props, context) {
-    const name = ref('')
-    const biography = ref('')
     const processing = ref(false)
     const errorMessages = ref<string[]>([])
+
+    const { name, biography, add, clearValues } = useUser()
 
     const addUser = async () => {
       processing.value = true
       try {
-        await apiAddUser(name.value, biography.value)
+        await add()
         context.root.$setFlash({ type: 'success', text: 'ユーザーを追加しました' })
         context.root.$router.push('/')
       } catch (e) {
@@ -49,11 +49,6 @@ export default defineComponent({
     const historyBack = () => {
       context.root.$router.back()
       processing.value = true
-    }
-
-    const clearValues = () => {
-      name.value = ''
-      biography.value = ''
     }
 
     return { name, biography, addUser, historyBack, clearValues, processing, errorMessages }

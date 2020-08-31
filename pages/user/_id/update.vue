@@ -25,33 +25,30 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
-import * as api from '../../../api/user'
+import useUser from '../../../compositions/users'
 
 export default defineComponent({
   setup(_props, context) {
     const id = context.root.$route.params.id
-    const name = ref('')
-    const biography = ref('')
+
+    const { name, biography, load, update, clearValues } = useUser()
+
     const processing = ref(false)
     const errorMessages = ref<string[]>([])
 
     processing.value = true
-    api
-      .user(id)
-      .then((e) => {
-        name.value = e.name
-        biography.value = e.biography
+    load(id)
+      .then((_e) => {
         processing.value = false
       })
-      .catch((e) => {
+      .catch((_e) => {
         errorMessages.value = ['ユーザー情報の取得に失敗しました']
       })
 
     const updateUser = async () => {
       processing.value = true
-      const user = { id, name: name.value, biography: biography.value }
       try {
-        await api.updateUser(user)
+        await update()
         context.root.$setFlash({ type: 'success', text: 'ユーザー情報を更新しました' })
         context.root.$router.push('/')
       } catch (e) {
@@ -63,11 +60,6 @@ export default defineComponent({
     const historyBack = () => {
       context.root.$router.back()
       processing.value = true
-    }
-
-    const clearValues = () => {
-      name.value = ''
-      biography.value = ''
     }
 
     return { name, biography, updateUser, historyBack, clearValues, processing, errorMessages }
